@@ -7,7 +7,7 @@
 | O quê       | Descrição                       |
 | ------------| --------------------------------| 
 | Autenticação| Não requer autenticação         |
-| URL Base    | https:// .../walk/v1/           |
+| URL Base    | https:// .../v1/                |
 | Versão atual| 1                               | 
 
 ### Atores
@@ -22,7 +22,7 @@
 
 | Recurso    | URL Base                        | Versão  |
 | -----------| --------------------------------| --------|
-| Tutor      | https:// .../walk/v1/tutor      | v1      |
-| Pet        | https:// .../walk/v1/pet        | v1      |
-| Passeador  | https:// .../walk/v1/passeador  | v1      |
-| Adestrador | https:// .../walk/v1/adestrador | v1      |
+| Tutor      | https:// .../v1/tutor            | v1      |
+| Pet        | https:// .../v1/pet              | v1      |
+| Passeador  | https:// .../v1/passeador        | v1      |
+| Adestrador | https:// .../v1/adestrador       | v1      |
