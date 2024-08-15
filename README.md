@@ -22,7 +22,7 @@
 
 | Recurso    | URL Base                        | Versão  |
 | -----------| --------------------------------| --------|
-| Tutor      | https:// .../v1/tutor            | v1      |
-| Pet        | https:// .../v1/pet              | v1      |
-| Passeador  | https:// .../v1/passeador        | v1      |
-| Adestrador | https:// .../v1/adestrador       | v1      |
+| Tutor      | {urlBase}/v1/tutor              | v1      |
+| Pet        | {urlBase}/v1/pet                | v1      |
+| Passeador  | {urlBase}/v1/passeador          | v1      |
+| Adestrador | {urlBase}/v1/adestrador         | v1      |
