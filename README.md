@@ -7,7 +7,7 @@
 | O quê       | Descrição                       |
 | ------------| --------------------------------| 
 | Autenticação| Não requer autenticação         |
-| URL Base    | https:// .../v1/                |
+| URL Base    | https:// .../                   |
 | Versão atual| 1                               | 
 
 ### Atores
