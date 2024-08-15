@@ -34,15 +34,19 @@
 Tutores
 
 - ``` /v1/tutor ``` : Retorna uma lista de tutores
+- ``` /v1/tutor/{id} ``` : Retorna um único tutor pelo seu id
 
 Pets 
 
 - ```/v1/pet```: retorna uma lista de pets
+- ``` /v1/pet/{id} ``` : Retorna um único pet pelo seu id
 
 Passeadores
 
 - ```/v1/passeador```: retorna uma lista de passeadores
+- ``` /v1/passeador/{id} ``` : Retorna um único passeador pelo seu id
 
 Adestradores 
 
 - ```/v1/adestrador```: retorna uma lista de adestradores
+- ``` /v1/adestrador/{id} ``` : Retorna um único adestrador pelo seu id
