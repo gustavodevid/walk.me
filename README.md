@@ -34,6 +34,15 @@
 Tutores
 
 - ``` /v1/tutor ``` : Retorna uma lista de tutores
+
+Pets 
+
 - ```/v1/pet```: retorna uma lista de pets
+
+Passeadores
+
 - ```/v1/passeador```: retorna uma lista de passeadores
+
+Adestradores 
+
 - ```/v1/adestrador```: retorna uma lista de adestradores
