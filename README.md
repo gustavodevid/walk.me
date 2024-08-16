@@ -59,7 +59,7 @@ Anuncios
 - ``` /v1/anuncio```: Retorna uma lista de anuncios disponíveis
 - ``` /v1/anuncio/{id} ``` : Retorna um único anúncio pelo seu id
 - ``` /v1/anuncio/adestrador/{id} ``` : Retorna uma lista de anúncios disponíveis de um adestrador pelo seu id
-- ``` /v1/anuncio/passeador/{id} ``` : Retorna uma lista de anúnciosa disponíveis de um passeador pelo seu id
+- ``` /v1/anuncio/passeador/{id} ``` : Retorna uma lista de anúncios disponíveis de um passeador pelo seu id
 
  Serviços 
 
