@@ -7,7 +7,7 @@
     "clean": "rimraf src/**/*.js",
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
-    "start": "ts-node src/server.ts",
+    "start": "tsx src/server.ts",
     "migrate": "sequelize db:migrate",
     "seed": "sequelize db:seed:all"
   },
