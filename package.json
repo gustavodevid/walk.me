@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node src/server.ts",
     "build": "tsc", 
-    "start": "node src/server.ts",
+    "start": "ts-node src/server.ts",
     "migrate": "sequelize db:migrate",
     "seed": "sequelize db:seed:all"
   },
