@@ -5,7 +5,7 @@
   "description": "API para o projeto Walk.Me.",
   "scripts": {
     "clean": "rimraf src/**/*.js",
-    "dev": "ts-node src/server.ts",
+    "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "ts-node src/server.ts",
     "migrate": "sequelize db:migrate",
