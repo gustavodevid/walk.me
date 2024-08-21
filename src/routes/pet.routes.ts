@@ -1,9 +1,10 @@
 import { Router } from 'express';
+import petController from '../controllers/pet.controller';
 
 const router = Router();
 
-router.get('/', () => {
-    console.log("pets"); //teste apenas 
-});
+router.get('/', petController.getAllPets);
+
+router.post('/', petController.createPet);
 
 export default router;

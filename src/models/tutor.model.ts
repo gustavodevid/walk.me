@@ -1,5 +1,6 @@
 import { Model, DataTypes, Optional } from 'sequelize';
 import sequelize from '../config/database';
+import Pet from './pet.model';
 
 interface TutorAttributes {
     id: string;
