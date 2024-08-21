@@ -5,6 +5,7 @@ class TutorService {
   public async getAllTutors() {
     return Tutor.findAll();
   }
+  
   public async getTutorByPk() {
     return Tutor.findOne({
       include: [{ model: Pet, as: 'pets' }]});

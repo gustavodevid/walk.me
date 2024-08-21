@@ -5,6 +5,10 @@ class PetService {
     return Pet.findAll();
   }
 
+  public async getPetByPk() {
+    return Pet.findOne();
+  }
+
   public async createPet(nome: string, raca: string, idade: number, tutorId: string) {
     return Pet.create({ nome, raca, idade, tutorId,  });
   }
