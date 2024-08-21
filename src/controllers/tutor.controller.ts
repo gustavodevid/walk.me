@@ -10,6 +10,14 @@ class TutorController {
       res.status(500).json({ message: 'Internal Server Error' });
     }
   }
+  public async getTutorByPk(req: Request, res: Response): Promise<void> {
+    try {
+      const Tutors = await TutorService.getTutorByPk();
+      res.json(Tutors);
+    } catch (error) {
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  }
 
   public async createTutor(req: Request, res: Response): Promise<void> {
     try {
