@@ -1,58 +1,30 @@
-import { Model, DataTypes, Optional } from 'sequelize';
-import sequelize from '../config/database';
+import { Table, Column, Model, DataType, ForeignKey, BelongsTo, PrimaryKey, AutoIncrement } from 'sequelize-typescript';
 import Tutor from './tutor.model';
 
-interface PetAttributes {
-    id: string;
-    nome: string;
-    raca: string;
-    idade: number;
-    foto?: string;
-    tutorId: string;
+@Table
+export default class Pet extends Model {
+  @PrimaryKey
+  @AutoIncrement
+  @Column(DataType.INTEGER)
+  petId!: number;
+
+  @Column(DataType.STRING)
+  nome!: string;
+
+  @Column(DataType.STRING)
+  raca!: string;
+
+  @Column(DataType.INTEGER)
+  idade!: number;
+
+  @Column(DataType.STRING)
+  foto?: string;
+
+  @ForeignKey(() => Tutor)
+  @Column(DataType.INTEGER)
+  tutorId!: string;
+
+  @BelongsTo(() => Tutor)
+  tutor!: Tutor;
 }
 
-interface PetCreationAttributes 
-    extends Optional<PetAttributes, 'id'> {}
-
-interface PetInstance 
-    extends Model<PetAttributes, PetCreationAttributes>, 
-    PetAttributes {
-        createdAt?: Date;
-        updatedAt?: Date;
-}
-
-const Pet = sequelize.define<PetInstance>('Pet', {
-  id: {
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
-    primaryKey: true,
-    allowNull: false,
-    autoIncrement: false,
-  },
-  nome: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },  
-  raca: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  idade: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  foto: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  tutorId: {
-    type: DataTypes.UUID,
-    allowNull: false,
-    references: {
-      model: Tutor,
-      key: 'id',
-    }
-  }
-});
-
-export default Pet;
