@@ -3,12 +3,7 @@ import Tutor from '../models/tutor.model';
 
 class TutorService {
   public async getAllTutors() {
-    return Tutor.findAll({
-      include: [{
-        model: Pet,
-        as: 'pets',
-      }],
-    });
+    return Tutor.findAll();
   }
 
   public async createTutor(nome: string, email: string, senha: string) {
