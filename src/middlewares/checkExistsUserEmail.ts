@@ -2,15 +2,15 @@
 import { Request, Response, NextFunction } from 'express';
 import Tutor from '../models/tutor.model';
 
-
-export const checkExistsTutorEmail = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+// TO-DO: adicionar verificação de adestradores e passeadores 
+export const checkExistsUserEmail = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const userEmail = req.body.email; 
   try {
-      const user = await Tutor.findOne({
+      const userIsTutor = await Tutor.findOne({
         where: { email: userEmail }
       });
 
-      if (user) {
+      if (userIsTutor) {
         res.status(400).json({ message: 'Email já está em uso.' });
         return;
       }
