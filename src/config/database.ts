@@ -2,6 +2,8 @@ import { Sequelize } from 'sequelize-typescript';
 import dotenv from 'dotenv';
 import Tutor from '../models/tutor.model';
 import Pet from '../models/pet.model';
+import Adestrador from '../models/adestrador.model';
+import Passeador from '../models/passeador.model';
 
 dotenv.config();
 
@@ -11,7 +13,7 @@ const sequelize = new Sequelize({
   password: process.env.DB_PASSWORD,
   host: 'localhost',
   dialect: 'postgres', 
-  models: [Tutor, Pet], 
+  models: [Tutor, Pet, Adestrador, Passeador], 
 });
 
 export default sequelize;
