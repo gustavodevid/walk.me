@@ -1,5 +1,5 @@
-import Pet from '../models/pet.model';
 import Adestrador from '../models/adestrador.model';
+import Anuncio from '../models/anuncio.model';
 
 class AdestradorService {
   public async getAllAdestradors() {
@@ -7,7 +7,10 @@ class AdestradorService {
   }
   
   public async getAdestradorByPk(id: string) {
-    return Adestrador.findOne({where: {adestradorId: id }});
+    return Adestrador.findOne({
+      where: {adestradorId: id },
+      include: [{ model: Anuncio, as: 'anuncios' }]
+    });
   }
 
   public async createAdestrador(nome: string, email: string, especialidade: string, senha: string) {

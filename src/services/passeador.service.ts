@@ -1,5 +1,5 @@
-import Pet from '../models/pet.model';
 import Passeador from '../models/passeador.model';
+import Anuncio from '../models/anuncio.model';
 
 class PasseadorService {
   public async getAllPasseadors() {
@@ -7,7 +7,10 @@ class PasseadorService {
   }
   
   public async getPasseadorByPk(id: string) {
-    return Passeador.findOne({where: {passeadorId: id }});
+    return Passeador.findOne({
+      where: {passeadorId: id },
+      include: [{ model: Anuncio, as: 'anuncios' }]
+    });
   }
 
   public async createPasseador(nome: string, email: string, disponibilidade: string, senha: string) {
