@@ -5,8 +5,8 @@ class PetService {
     return Pet.findAll();
   }
 
-  public async getPetByPk() {
-    return Pet.findOne();
+  public async getPetByPk(id: string) {
+    return Pet.findOne({where: {petId: id }});
   }
 
   public async createPet(nome: string, raca: string, idade: number, tutorId: string) {

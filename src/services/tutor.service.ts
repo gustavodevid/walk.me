@@ -6,8 +6,9 @@ class TutorService {
     return Tutor.findAll();
   }
   
-  public async getTutorByPk() {
+  public async getTutorByPk(id: string) {
     return Tutor.findOne({
+      where: {tutorId: id },
       include: [{ model: Pet, as: 'pets' }]});
   }
 

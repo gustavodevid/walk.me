@@ -11,8 +11,9 @@ class AdestradorController {
     }
   }
   public async getAdestradorByPk(req: Request, res: Response): Promise<void> {
+    const id = req.params.id;
     try {
-      const Adestrador = await AdestradorService.getAdestradorByPk();
+      const Adestrador = await AdestradorService.getAdestradorByPk(id);
       res.json(Adestrador);
     } catch (error) {
       res.status(500).json({ message: 'Internal Server Error' });

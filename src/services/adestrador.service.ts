@@ -6,8 +6,8 @@ class AdestradorService {
     return Adestrador.findAll();
   }
   
-  public async getAdestradorByPk() {
-    return Adestrador.findOne();
+  public async getAdestradorByPk(id: string) {
+    return Adestrador.findOne({where: {adestradorId: id }});
   }
 
   public async createAdestrador(nome: string, email: string, especialidade: string, senha: string) {

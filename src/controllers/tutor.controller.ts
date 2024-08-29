@@ -11,8 +11,9 @@ class TutorController {
     }
   }
   public async getTutorByPk(req: Request, res: Response): Promise<void> {
+    const id = req.params.id;
     try {
-      const Tutor = await TutorService.getTutorByPk();
+      const Tutor = await TutorService.getTutorByPk(id);
       res.json(Tutor);
     } catch (error) {
       res.status(500).json({ message: 'Internal Server Error' });

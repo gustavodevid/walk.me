@@ -6,8 +6,8 @@ class PasseadorService {
     return Passeador.findAll();
   }
   
-  public async getPasseadorByPk() {
-    return Passeador.findOne();
+  public async getPasseadorByPk(id: string) {
+    return Passeador.findOne({where: {passeadorId: id }});
   }
 
   public async createPasseador(nome: string, email: string, disponibilidade: string, senha: string) {

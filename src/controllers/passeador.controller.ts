@@ -11,8 +11,9 @@ class PasseadorController {
     }
   }
   public async getPasseadorByPk(req: Request, res: Response): Promise<void> {
+    const id = req.params.id;
     try {
-      const Passeador = await PasseadorService.getPasseadorByPk();
+      const Passeador = await PasseadorService.getPasseadorByPk(id);
       res.json(Passeador);
     } catch (error) {
       res.status(500).json({ message: 'Internal Server Error' });

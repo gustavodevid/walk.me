@@ -1,4 +1,3 @@
-
 import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, Default, HasMany} from 'sequelize-typescript';
 import Anuncio from './anuncio.model';
 
