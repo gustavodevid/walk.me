@@ -11,10 +11,10 @@ export default class Tutor extends Model {
   tutorId!: string;
 
   @Column(DataType.STRING)
-  nome!: string;
+  email!: string;
 
   @Column(DataType.STRING)
-  email!: string;
+  nome!: string;
 
   @Column(DataType.STRING)
   senha!: string;

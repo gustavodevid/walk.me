@@ -1,8 +1,4 @@
-import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, Default, ForeignKey} from 'sequelize-typescript';
-import Adestrador from './adestrador.model';
-import Passeador from './passeador.model';
-import Tutor from './tutor.model';
-import Pet from './pet.model';
+import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, Default, ForeignKey, BelongsTo} from 'sequelize-typescript';
 import Servico from './servico.model';
 
 @Table
@@ -25,7 +21,6 @@ export default class Avaliacao extends Model {
   @Column(DataType.STRING)
   comentario?: string;
 
-  @Column(DataType.UUID)
-  profissionalId!: string;
-
+  @BelongsTo(() => Servico)
+  servico!: Servico;
 }
