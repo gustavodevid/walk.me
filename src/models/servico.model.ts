@@ -42,9 +42,9 @@ export default class Servico extends Model {
   
   @ForeignKey(() => Adestrador)
   @Column(DataType.UUID)
-  adestradorId!: string;
+  adestradorId?: string;
 
   @ForeignKey(() => Passeador)
   @Column(DataType.UUID)
-  passeadorId!: string;
+  passeadorId?: string;
 }
