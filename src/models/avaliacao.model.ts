@@ -1,5 +1,3 @@
-
-import { Geometry } from 'geojson';
 import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, Default, ForeignKey} from 'sequelize-typescript';
 import Adestrador from './adestrador.model';
 import Passeador from './passeador.model';

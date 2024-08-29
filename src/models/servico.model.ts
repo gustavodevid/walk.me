@@ -17,27 +17,34 @@ export default class Servico extends Model {
   })
   servicoId!: string;
 
-  @ForeignKey(() => Anuncio)
-  @Column(DataType.UUID)
-  anuncioId!: string;
+  @Column(DataType.DATE)
+  dataServico!: Date;
 
   @Column(DataType.GEOMETRY)
   localizacaoServico!: Geometry;
 
-  @Column(DataType.DATE)
-  dataServico!: Date;
-
-
   @Column(DataType.STRING)
   status!: string;
 
-  @ForeignKey(() => Pet)
-  @Column(DataType.UUID)
-  petId!: string;
-  
   @Column({
     type: DataType.ENUM,
     values: ['passeio', 'adestramento']
   })
   tipoServico!:string
+
+  @ForeignKey(() => Tutor)
+  @Column(DataType.UUID)
+  tutorId!: string;
+
+  @ForeignKey(() => Pet)
+  @Column(DataType.UUID)
+  petId!: string;
+  
+  @ForeignKey(() => Adestrador)
+  @Column(DataType.UUID)
+  adestradorId!: string;
+
+  @ForeignKey(() => Passeador)
+  @Column(DataType.UUID)
+  passeadorId!: string;
 }
