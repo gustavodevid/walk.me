@@ -1,6 +1,6 @@
 
 import { Geometry } from 'geojson';
-import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, Default, ForeignKey} from 'sequelize-typescript';
+import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, Default, ForeignKey, BelongsTo} from 'sequelize-typescript';
 import Adestrador from './adestrador.model';
 import Passeador from './passeador.model';
 
@@ -33,4 +33,10 @@ export default class Anuncio extends Model {
   @ForeignKey(() => Passeador)
   @Column(DataType.UUID)
   passeadorId?: string;
+
+  @BelongsTo(() => Adestrador)
+  adestrador?: Adestrador;
+
+  @BelongsTo(() => Passeador)
+  passeador?: Passeador;
 }

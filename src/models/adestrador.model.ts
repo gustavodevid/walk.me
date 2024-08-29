@@ -1,5 +1,6 @@
 
-import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, Default} from 'sequelize-typescript';
+import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, Default, HasMany} from 'sequelize-typescript';
+import Anuncio from './anuncio.model';
 
 @Table
 export default class Adestrador extends Model {
@@ -23,4 +24,7 @@ export default class Adestrador extends Model {
 
   @Column(DataType.STRING)
   senha!: string;
+
+  @HasMany(() => Anuncio)
+  anuncios!: Anuncio[];
 }
