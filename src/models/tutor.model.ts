@@ -4,9 +4,11 @@ import Pet from './pet.model';
 @Table
 export default class Tutor extends Model {
   @PrimaryKey
-  @AutoIncrement
-  @Column(DataType.INTEGER)
-  tutorId!: number;
+  @Column({
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
+  })
+  tutorId!: string;
 
   @Column(DataType.STRING)
   nome!: string;

@@ -1,11 +1,16 @@
-import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement } from 'sequelize-typescript';
+
+import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, Default} from 'sequelize-typescript';
 
 @Table
 export default class Adestrador extends Model {
+
   @PrimaryKey
-  @AutoIncrement
-  @Column(DataType.INTEGER)
-  adestradorId!: number;
+  
+  @Column({
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
+  })
+  adestradorId!: string;
 
   @Column(DataType.STRING)
   nome!: string;

@@ -4,8 +4,10 @@ import Tutor from './tutor.model';
 @Table
 export default class Pet extends Model {
   @PrimaryKey
-  @AutoIncrement
-  @Column(DataType.INTEGER)
+  @Column({
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
+  })
   petId!: number;
 
   @Column(DataType.STRING)
@@ -21,7 +23,7 @@ export default class Pet extends Model {
   foto?: string;
 
   @ForeignKey(() => Tutor)
-  @Column(DataType.INTEGER)
+  @Column(DataType.UUID)
   tutorId!: string;
 
   @BelongsTo(() => Tutor)

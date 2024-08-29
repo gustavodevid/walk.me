@@ -3,9 +3,11 @@ import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement } from 'seque
 @Table
 export default class Passeador extends Model {
   @PrimaryKey
-  @AutoIncrement
-  @Column(DataType.INTEGER)
-  passeadorId!: number;
+  @Column({
+    type: DataType.UUID,
+    defaultValue: DataType.UUIDV4,
+  })
+  passeadorId!: string;
 
   @Column(DataType.STRING)
   nome!: string;
