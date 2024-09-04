@@ -12,10 +12,10 @@ class AnuncioService {
   }
 
   public async getAnunciosAdestrador() {
-    return Anuncio.findOne({where: {passeadorId:null }});
+    return Anuncio.findAll({where: {passeadorId:null }});
   }
   public async getAnunciosPasseador() {
-    return Anuncio.findOne({where: {adestradorId:null }});
+    return Anuncio.findAll({where: {adestradorId:null }});
   }
 
   // Recebe tipo do profissional e salva na sua respectiva coluna, deixando a outra nula
