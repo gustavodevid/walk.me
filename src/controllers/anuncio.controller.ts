@@ -19,6 +19,25 @@ class AnuncioController {
       res.status(500).json({ message: 'Internal Server Error' });
     }
   }
+  
+  public async getAnunciosAdestrador(req: Request, res: Response): Promise<void> {
+    try {
+      const Anuncio = await AnuncioService.getAnunciosAdestrador();
+      res.json(Anuncio);
+    } catch (error) {
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  }
+
+  public async getAnunciosPasseador(req: Request, res: Response): Promise<void> {
+    try {
+      const Anuncio = await AnuncioService.getAnunciosPasseador();
+      res.json(Anuncio);
+    } catch (error) {
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  }
+
 
   public async createAnuncio(req: Request, res: Response): Promise<void> {
     try {

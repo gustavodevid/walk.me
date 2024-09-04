@@ -14,7 +14,7 @@ class PasseadorService {
   }
 
   public async createPasseador(nome: string, email: string, disponibilidade: string, senha: string) {
-    return Passeador.create({ nome, email, disponibilidade, senha });
+    return Passeador.create({ nome, email, disponibilidade, senha});
   }
 }
 

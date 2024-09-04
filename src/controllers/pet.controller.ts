@@ -21,6 +21,15 @@ class PetController {
     }
   }
 
+  public async getPetsByTutorId(req: Request, res: Response): Promise<void> {
+    const id = req.params.id;
+    try {
+      const Pet = await PetService.getPetsByTutorId(id);
+      res.json(Pet);
+    } catch (error) {
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  }
   public async createPet(req: Request, res: Response): Promise<void> {
     try {
       const { nome, raca, idade, tutorId } = req.body;
