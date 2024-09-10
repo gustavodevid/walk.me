@@ -1,32 +1,39 @@
-import { Table, Column, Model, DataType, ForeignKey, BelongsTo, PrimaryKey, AutoIncrement } from 'sequelize-typescript';
+import {
+	Table,
+	Column,
+	Model,
+	DataType,
+	ForeignKey,
+	BelongsTo,
+	PrimaryKey,
+} from 'sequelize-typescript';
 import Tutor from './tutor.model';
 
 @Table
 export default class Pet extends Model {
-  @PrimaryKey
-  @Column({
-    type: DataType.UUID,
-    defaultValue: DataType.UUIDV4,
-  })
-  petId!: number;
+	@PrimaryKey
+	@Column({
+		type: DataType.UUID,
+		defaultValue: DataType.UUIDV4,
+	})
+	petId!: number;
 
-  @Column(DataType.STRING)
-  nome!: string;
+	@Column(DataType.STRING)
+	nome!: string;
 
-  @Column(DataType.STRING)
-  raca!: string;
+	@Column(DataType.STRING)
+	raca!: string;
 
-  @Column(DataType.INTEGER)
-  idade!: number;
+	@Column(DataType.INTEGER)
+	idade!: number;
 
-  @Column(DataType.STRING)
-  foto?: string;
+	@Column(DataType.STRING)
+	foto?: string;
 
-  @ForeignKey(() => Tutor)
-  @Column(DataType.UUID)
-  tutorId!: string;
+	@ForeignKey(() => Tutor)
+	@Column(DataType.UUID)
+	tutorId!: string;
 
-  @BelongsTo(() => Tutor)
-  tutor!: Tutor;
+	@BelongsTo(() => Tutor)
+	tutor!: Tutor;
 }
-
