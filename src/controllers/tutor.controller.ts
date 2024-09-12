@@ -5,6 +5,7 @@ import tutorService from '../services/tutor.service';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt'
 import dotenv from 'dotenv'
+import { hash } from 'crypto';
 dotenv.config();
 const secret = process.env.SECRET || ' ' ;
 class TutorController {
@@ -56,7 +57,11 @@ class TutorController {
 		if(!user){
 			res.status(StatusCodes.NOT_FOUND).json("Email não encontrado!")
 		}
-		else if(!await bcrypt.compare(senha, user?.senha)){
+		else {
+			const hashSenha = user.dataValues.senha;
+			console.log(hashSenha)
+			if(!(await bcrypt.compare(senha, hashSenha))){
+			// console.log(user.senha)
 			res.status(StatusCodes.UNAUTHORIZED).json("Senha inválida!")
 		}
 		try{
@@ -69,6 +74,9 @@ class TutorController {
 		catch(err){
 			res.status(StatusCodes.INTERNAL_SERVER_ERROR).json('Não foi possível logar!')
 		}
+		}
+		
+		
 	}
 }
 
