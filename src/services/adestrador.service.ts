@@ -28,6 +28,11 @@ class AdestradorService {
 			cascade: true,
 		});
 	}
+	public async getAdestradorByEmail(email:string){
+		return Adestrador.findOne({
+			where: {email:email},
+		})
+	}
 }
 
 export default new AdestradorService();

@@ -5,6 +5,7 @@ import {
 	DataType,
 	PrimaryKey,
 	HasMany,
+	Unique,
 } from 'sequelize-typescript';
 import Anuncio from './anuncio.model';
 
@@ -19,7 +20,8 @@ export default class Passeador extends Model {
 
 	@Column(DataType.STRING)
 	nome!: string;
-
+	
+	@Unique
 	@Column(DataType.STRING)
 	email!: string;
 

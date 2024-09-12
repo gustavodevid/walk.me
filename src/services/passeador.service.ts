@@ -28,6 +28,11 @@ class PasseadorService {
 			cascade: true,
 		});
 	}
+	public async getPasseadorByEmail(email:string){
+		return Passeador.findOne({
+			where: {email:email},
+		})
+	}
 }
 
 export default new PasseadorService();

@@ -5,6 +5,7 @@ import {
 	DataType,
 	HasMany,
 	PrimaryKey,
+	Unique,
 } from 'sequelize-typescript';
 import Pet from './pet.model';
 
@@ -16,7 +17,8 @@ export default class Tutor extends Model {
 		defaultValue: DataType.UUIDV4,
 	})
 	tutorId!: string;
-
+	
+	@Unique
 	@Column(DataType.STRING)
 	email!: string;
 

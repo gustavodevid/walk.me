@@ -23,6 +23,14 @@ class TutorService {
 			cascade: true,
 		});
 	}
+	public async getTutorByEmail(email:string){
+		return Tutor.findOne({
+			where: {email:email},
+		})
+	}
+
 }
+
+
 
 export default new TutorService();
