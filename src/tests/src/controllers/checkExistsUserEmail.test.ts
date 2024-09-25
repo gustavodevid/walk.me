@@ -86,4 +86,65 @@ describe('checkExistsUserEmail', () => {
     expect(res.json).toHaveBeenCalledWith({ message: 'Erro ao verificar o email.' });
     expect(next).not.toHaveBeenCalled();
   });
+  it('deve retornar erro 500 em caso de exceção ao buscar Tutor', async () => {
+    (Tutor.findOne as jest.Mock).mockRejectedValue(new Error('Erro ao buscar tutor'));
+
+    await checkExistsUserEmail(req as Request, res as Response, next);
+
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalledWith({ message: 'Erro ao verificar o email.' });
+    expect(next).not.toHaveBeenCalled();
+  });
+
+  it('deve retornar erro 500 em caso de exceção ao buscar Adestrador', async () => {
+    (Tutor.findOne as jest.Mock).mockResolvedValue(null);
+    (Adestrador.findOne as jest.Mock).mockRejectedValue(new Error('Erro ao buscar adestrador'));
+
+    await checkExistsUserEmail(req as Request, res as Response, next);
+
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalledWith({ message: 'Erro ao verificar o email.' });
+    expect(next).not.toHaveBeenCalled();
+  });
+
+  it('deve retornar erro 500 em caso de exceção ao buscar Passeador', async () => {
+    (Tutor.findOne as jest.Mock).mockResolvedValue(null);
+    (Adestrador.findOne as jest.Mock).mockResolvedValue(null);
+    (Passeador.findOne as jest.Mock).mockRejectedValue(new Error('Erro ao buscar passeador'));
+
+    await checkExistsUserEmail(req as Request, res as Response, next);
+
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalledWith({ message: 'Erro ao verificar o email.' });
+    expect(next).not.toHaveBeenCalled();
+  });
+
+  it('deve retornar erro se o email for inválido', async () => {
+    req.body.email = ''; 
+    await checkExistsUserEmail(req as Request, res as Response, next);
+
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith({ message: 'Email inválido.' });
+    expect(next).not.toHaveBeenCalled();
+  });
+
+  it('deve retornar erro se o email não for fornecido', async () => {
+    req.body.email = undefined;
+
+    await checkExistsUserEmail(req as Request, res as Response, next);
+
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith({ message: 'Email inválido.' });
+    expect(next).not.toHaveBeenCalled();
+  });
+
+  it('deve retornar erro se o email tiver formato inválido', async () => {
+    req.body.email = 'invalid-email-format';
+
+    await checkExistsUserEmail(req as Request, res as Response, next);
+
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith({ message: 'Email inválido.' });
+    expect(next).not.toHaveBeenCalled();
+  });
 });
