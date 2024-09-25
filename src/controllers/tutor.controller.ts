@@ -6,12 +6,14 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt'
 import dotenv from 'dotenv'
 import { hash } from 'crypto';
+import Tutor from '../models/tutor.model';
+import { TutorData } from '../types/tutor.type';
 dotenv.config();
 const secret = process.env.SECRET || ' ' ;
 class TutorController {
 	public async getAllTutors(req: Request, res: Response): Promise<void> {
 		try {
-			const Tutors = await TutorService.getAllTutors();
+			const Tutors: TutorData[] = await TutorService.getAllTutors();
 			res.json(Tutors);
 		} catch (error) {
 			res.status(500).json({ message: 'Internal Server Error' });

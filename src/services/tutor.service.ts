@@ -1,9 +1,10 @@
 import Pet from '../models/pet.model';
 import Tutor from '../models/tutor.model';
+import { TutorData } from '../types/tutor.type';
 
 class TutorService {
-	public async getAllTutors() {
-		return Tutor.findAll();
+	public async getAllTutors(): Promise<TutorData[]> {
+		return await Tutor.findAll();
 	}
 
 	public async getTutorByPk(id: string) {
