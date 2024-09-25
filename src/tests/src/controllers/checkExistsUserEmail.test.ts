@@ -147,4 +147,130 @@ describe('checkExistsUserEmail', () => {
     expect(res.json).toHaveBeenCalledWith({ message: 'Email inválido.' });
     expect(next).not.toHaveBeenCalled();
   });
+
+  it('deve retornar erro se o email conter caracteres especiais', async () => {
+    req.body.email = 'test!@example.com';
+    await checkExistsUserEmail(req as Request, res as Response, next);
+  
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith({ message:   
+   'Email inválido.' });
+    expect(next).not.toHaveBeenCalled();
+  });
+  
+  it('deve considerar email como case-sensitive', async () => {
+    (Tutor.findOne as jest.Mock).mockResolvedValue({ email: 'Test@example.com' });
+    req.body.email = 'test@example.com';
+  
+    await checkExistsUserEmail(req as Request, res as Response, next);
+  
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith({ message: 'Email já está em uso.' });
+    expect(next).not.toHaveBeenCalled();
+  });
+  
+  it('deve retornar a resposta como JSON', async () => {
+    (Tutor.findOne as jest.Mock).mockResolvedValue(null);
+    await checkExistsUserEmail(req as Request, res as Response, next);
+  
+    expect(res.json).toHaveBeenCalledWith(expect.any(Object));
+  });
+
+  it('deve retornar erro se o email tiver espaços em branco', async () => {
+    req.body.email = '   ';
+    
+    await checkExistsUserEmail(req as Request, res as Response, next);
+    
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith({ message: 'Email inválido.' });
+    expect(next).not.toHaveBeenCalled();
+  });
+
+  it('deve retornar erro se o email for um domínio inválido', async () => {
+    req.body.email = 'test@invalid_domain';
+    
+    await checkExistsUserEmail(req as Request, res as Response, next);
+    
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith({ message: 'Email inválido.' });
+    expect(next).not.toHaveBeenCalled();
+  });
+
+  it('deve retornar erro se o email for muito longo', async () => {
+    req.body.email = 'a'.repeat(255) + '@example.com'; // Email com mais de 254 caracteres
+     
+    await checkExistsUserEmail(req as Request, res as Response, next);
+    
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith({ message: 'Email inválido.' });
+    expect(next).not.toHaveBeenCalled();
+  });
+
+  it('deve retornar erro se o email for apenas números', async () => {
+    req.body.email = '1234567890';
+    
+    await checkExistsUserEmail(req as Request, res as Response, next);
+    
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith({ message: 'Email inválido.' });
+    expect(next).not.toHaveBeenCalled();
+  });
+
+  it('deve retornar erro se o email estiver em formato inválido com caracteres não permitidos', async () => {
+    req.body.email = 'test@#example.com';
+    
+    await checkExistsUserEmail(req as Request, res as Response, next);
+    
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith({ message: 'Email inválido.' });
+    expect(next).not.toHaveBeenCalled();
+  });
+
+  it('deve retornar erro se o email for apenas um domínio', async () => {
+    req.body.email = '@example.com';
+    
+    await checkExistsUserEmail(req as Request, res as Response, next);
+    
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith({ message: 'Email inválido.' });
+    expect(next).not.toHaveBeenCalled();
+  });
+
+  it('deve retornar erro se o email tiver dois símbolos "@"', async () => {
+    req.body.email = 'test@@example.com';
+    
+    await checkExistsUserEmail(req as Request, res as Response, next);
+    
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith({ message: 'Email inválido.' });
+    expect(next).not.toHaveBeenCalled();
+  });
+  
+  it('deve retornar erro se o email começar ou terminar com um ponto', async () => {
+    req.body.email = '.test@example.com';
+    
+    await checkExistsUserEmail(req as Request, res as Response, next);
+    
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith({ message: 'Email inválido.' });
+    expect(next).not.toHaveBeenCalled();
+    
+    req.body.email = 'test.@example.com';
+    
+    await checkExistsUserEmail(req as Request, res as Response, next);
+    
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith({ message: 'Email inválido.' });
+    expect(next).not.toHaveBeenCalled();
+  });
+  
+  it('deve retornar erro se o email tiver uma sequência de pontos', async () => {
+    req.body.email = 'test..example@example.com';
+    
+    await checkExistsUserEmail(req as Request, res as Response, next);
+    
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith({ message: 'Email inválido.' });
+    expect(next).not.toHaveBeenCalled();
+  });
 });
