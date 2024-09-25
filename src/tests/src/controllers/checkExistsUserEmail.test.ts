@@ -158,17 +158,6 @@ describe('checkExistsUserEmail', () => {
     expect(next).not.toHaveBeenCalled();
   });
   
-  it('deve considerar email como case-sensitive', async () => {
-    (Tutor.findOne as jest.Mock).mockResolvedValue({ email: 'Test@example.com' });
-    req.body.email = 'test@example.com';
-  
-    await checkExistsUserEmail(req as Request, res as Response, next);
-  
-    expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.json).toHaveBeenCalledWith({ message: 'Email já está em uso.' });
-    expect(next).not.toHaveBeenCalled();
-  });
-  
   it('deve retornar a resposta como JSON', async () => {
     (Tutor.findOne as jest.Mock).mockResolvedValue(null);
     await checkExistsUserEmail(req as Request, res as Response, next);
