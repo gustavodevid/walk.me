@@ -17,7 +17,7 @@ export const checkExistsUserEmail = async (req: Request, res: Response, next: Ne
       });
 
       const userIsPasseador = await Passeador.findOne({
-        where: { email: userEmail }
+        where: { email: userEmail } 
       });
 
       if (userIsTutor || userIsAdestrador || userIsPasseador) {

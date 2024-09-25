@@ -19,6 +19,7 @@ class TutorController {
 			res.status(500).json({ message: 'Internal Server Error' });
 		}
 	}
+	
 	public async getTutorByPk(req: Request, res: Response): Promise<void> {
 		const id = req.params.id;
 		try {
