@@ -26,7 +26,12 @@ describe('should connect and return a query result', () => {
 		// Get all users
 		const tutors = await Tutor.findAll();
 		// Check that the expected user is present
-		expect(tutors).toEqual(
+		console.log(tutors);
+
+		// Acessando dataValues para a verificação
+		const tutorDataValues = tutors.map(tutor => tutor.dataValues);
+
+		expect(tutorDataValues).toEqual(
 			expect.arrayContaining([
 				expect.objectContaining({
 					email: 'teste@teste.com',
@@ -34,12 +39,13 @@ describe('should connect and return a query result', () => {
 					senha: '1234',
 					createdAt: expect.any(Date),
 					updatedAt: expect.any(Date),
-					tutorId: expect.any(DataType.UUID),
+					tutorId: expect.any(String),
 				}),
 			])
 		);
+		
 		// Close connections
 		await client.close();
 		await container.stop();
-	}, 25000);
+	}, 60000);
 });
