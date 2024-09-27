@@ -33,8 +33,12 @@ beforeAll(async () => {
 
 afterAll(async () => {
 	// Close connections
-	await client.close();
-	await container.stop();
+	if (client) {
+		await client.close();
+	}
+	if (container) {
+		await container.stop();
+	}
 });
 
 describe('should connect to postgres and return a query result', () => {

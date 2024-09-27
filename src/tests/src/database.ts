@@ -40,6 +40,7 @@ export async function getSequelize({
 		port,
 	});
 
+	// await client.sync();
 	await Tutor.sync();
 	await Pet.sync();
 	await Passeador.sync();

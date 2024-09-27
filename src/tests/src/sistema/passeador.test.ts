@@ -37,8 +37,12 @@ beforeAll(async () => {
 
 afterAll(async () => {
 	// Close connections
-	await client.close();
-	await container.stop();
+	if (client) {
+		await client.close();
+	}
+	if (container) {
+		await container.stop();
+	}
 });
 
 describe('must trigger the operation of the api from the routes', () => {
