@@ -4,7 +4,7 @@ import {
 } from '@testcontainers/postgresql';
 import { getSequelize } from '../database';
 import { Sequelize } from 'sequelize-typescript';
-import Passeador from '../../../models/passeador.model';
+import Tutor from '../../../models/tutor.model';
 import app from '../../../app';
 import request from 'supertest';
 import { StatusCodes } from 'http-status-codes';
@@ -27,10 +27,9 @@ beforeAll(async () => {
 	// Check if you have access to the database
 	await client.authenticate();
 	// Create a user
-	const passeador = await Passeador.create({
-		email: 'teste@teste.com',
+	await Tutor.create({
 		nome: 'Tulio',
-		disponibilidade: 'tarde',
+		email: 'teste@teste.com',
 		senha: '1234',
 	});
 });
@@ -42,64 +41,53 @@ afterAll(async () => {
 });
 
 describe('must trigger the operation of the api from the routes', () => {
-	it('GET /passeador', async () => {
-		const response = await request(app).get('/v1/passeador/');
-
+	it('GET /tutor', async () => {
+		const response = await request(app).get('/v1/tutor/');
 		expect(response.status).toBe(StatusCodes.OK);
 		expect(response.body).toEqual(
 			expect.arrayContaining([
 				expect.objectContaining({
 					nome: 'Tulio',
-					disponibilidade: 'tarde',
 					email: 'teste@teste.com',
 					senha: expect.any(String),
 					createdAt: expect.any(String),
 					updatedAt: expect.any(String),
-					passeadorId: expect.any(String),
+					tutorId: expect.any(String),
 				}),
 			])
 		);
 	}, 60000);
-
-	it('POST /passeador', async () => {
-		const response = await request(app).post('/v1/passeador/').send({
+	it('POST /tutor', async () => {
+		const response = await request(app).post('/v1/tutor/').send({
 			email: 'teste2@teste.com',
 			nome: 'Messyas',
-			disponibilidade: 'tarde',
 			senha: '1222',
 		});
-
-		await Passeador.destroy({
+		await Tutor.destroy({
 			where: {
 				email: 'teste2@teste.com',
 			},
 		});
-
 		expect(response.status).toBe(StatusCodes.CREATED);
 		expect(response.body).toEqual(
 			expect.objectContaining({
 				nome: 'Messyas',
-				disponibilidade: 'tarde',
 				email: 'teste2@teste.com',
 				senha: expect.any(String),
 				createdAt: expect.any(String),
 				updatedAt: expect.any(String),
-				passeadorId: expect.any(String),
+				tutorId: expect.any(String),
 			})
 		);
 	}, 60000);
-
-	it('DELETE /passeador', async () => {
-		const novoPasseador = await Passeador.create({
+	it('DELETE /tutor', async () => {
+		const novoTutor = await Tutor.create({
 			email: 'teste2@teste.com',
 			nome: 'Messyas',
-			disponibilidade: 'tarde',
 			senha: '1222',
 		});
-		const id = novoPasseador?.dataValues.passeadorId;
-
-		const response = await request(app).delete('/v1/passeador/' + id);
-
+		const id = novoTutor?.dataValues.tutorId;
+		const response = await request(app).delete('/v1/tutor/' + id);
 		expect(response.status).toBe(StatusCodes.OK);
 		expect(response.body).toBe(1);
 	}, 60000);

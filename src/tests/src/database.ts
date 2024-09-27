@@ -22,8 +22,6 @@ export async function getSequelize({
 	host,
 	port,
 }: GetSequelizeArgs) {
-	console.log(username);
-	console.log(password);
 	const client = new Sequelize({
 		database,
 		username,
