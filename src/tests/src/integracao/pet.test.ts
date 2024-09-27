@@ -2,8 +2,8 @@ import {
 	PostgreSqlContainer,
 	StartedPostgreSqlContainer,
 } from '@testcontainers/postgresql';
-import Pet from '../../../models/pet.model';
 import { getSequelize } from '../database';
+import Pet from '../../../models/pet.model';
 import { Sequelize } from 'sequelize-typescript';
 import Tutor from '../../../models/tutor.model';
 
