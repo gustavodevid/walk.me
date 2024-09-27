@@ -2,12 +2,14 @@ import {
 	PostgreSqlContainer,
 	StartedPostgreSqlContainer,
 } from '@testcontainers/postgresql';
+import Pet from '../../../models/pet.model';
 import { getSequelize } from '../database';
 import { Sequelize } from 'sequelize-typescript';
 import Tutor from '../../../models/tutor.model';
 
 let container: StartedPostgreSqlContainer;
 let client: Sequelize;
+let id: number;
 
 beforeAll(async () => {
 	// Create a container using testcontainers
@@ -29,6 +31,20 @@ beforeAll(async () => {
 		nome: 'Hancock',
 		senha: '1234',
 	});
+
+	const tutor = await Tutor.findOne({
+		where: {
+			email: 'teste@teste.com',
+		},
+	});
+	id = tutor?.dataValues.tutorId;
+
+	await Pet.create({
+		nome: 'floquinho',
+		raca: 'Lhasa Apso',
+		idade: 3,
+		tutorId: id,
+	});
 });
 
 afterAll(async () => {
@@ -38,80 +54,86 @@ afterAll(async () => {
 });
 
 describe('should connect to postgres and return a query result', () => {
-	it('tutor findAll', async () => {
+	it('pet findAll', async () => {
 		// Get all users
-		const tutors = await Tutor.findAll();
+		const pets = await Pet.findAll();
 
 		// Acessando dataValues para a verificação
-		const tutorDataValues = tutors.map((tutor: Tutor) => tutor.dataValues);
+		const petDataValues = pets.map((pet) => pet.dataValues);
 
-		expect(tutorDataValues).toEqual(
+		expect(petDataValues).toEqual(
 			expect.arrayContaining([
 				expect.objectContaining({
-					email: 'teste@teste.com',
-					nome: 'Hancock',
-					senha: '1234',
+					nome: 'floquinho',
+					raca: 'Lhasa Apso',
+					idade: 3,
 					createdAt: expect.any(Date),
 					updatedAt: expect.any(Date),
-					tutorId: expect.any(String),
+					petId: expect.any(String),
+					tutorId: id,
 				}),
 			])
 		);
 	}, 60000);
 
-	it('tutor destroy', async () => {
-		const result = await Tutor.destroy({
-			where: { email: 'teste@teste.com' },
+	it('pet destroy', async () => {
+		const result = await Pet.destroy({
+			where: { tutorId: id },
 		});
 
-		await Tutor.create({
-			email: 'teste@teste.com',
-			nome: 'Hancock',
-			senha: '1234',
+		await Pet.create({
+			nome: 'floquinho',
+			raca: 'Lhasa Apso',
+			idade: 3,
+			tutorId: id,
 		});
 
 		expect(result).toBe(1);
 	}, 60000);
 
-	it('tutor create', async () => {
-		const tutor = await Tutor.create({
-			email: 'teste2@teste.com',
-			nome: 'Davi',
-			senha: '1221',
+	it('pet create', async () => {
+		const pet = await Pet.create({
+			nome: 'pluto',
+			raca: 'bloodhound',
+			idade: 5,
+			tutorId: id,
 		});
-		const tutorDataValues = tutor.dataValues;
+		const petDataValues = pet.dataValues;
 
-		await Tutor.destroy({
+		await Pet.destroy({
 			where: {
-				email: 'teste2@teste.com',
+				nome: 'pluto',
 			},
 		});
 
-		expect(tutorDataValues).toEqual(
+		expect(petDataValues).toEqual(
 			expect.objectContaining({
-				email: 'teste2@teste.com',
-				nome: 'Davi',
-				senha: '1221',
+				nome: 'pluto',
+				raca: 'bloodhound',
+				idade: 5,
 				createdAt: expect.any(Date),
 				updatedAt: expect.any(Date),
-				tutorId: expect.any(String),
+				petId: expect.any(String),
+				tutorId: id,
 			})
 		);
 	}, 60000);
 
-	it('tutor findOne', async () => {
-		const tutor = await Tutor.findOne({
-			where: { email: 'teste@teste.com' },
+	it('pet findOne', async () => {
+		const pet = await Pet.findOne({
+			where: { nome: 'floquinho' },
 		});
-		const tutorDataValues = tutor?.dataValues;
-		expect(tutorDataValues).toEqual(
+		const petDataValues = pet?.dataValues;
+
+		expect(petDataValues).toEqual(
 			expect.objectContaining({
-				email: 'teste@teste.com',
-				nome: 'Hancock',
-				senha: '1234',
+				nome: 'floquinho',
+				raca: 'Lhasa Apso',
+				idade: 3,
 				createdAt: expect.any(Date),
 				updatedAt: expect.any(Date),
-				tutorId: expect.any(String),
+				petId: expect.any(String),
+				tutorId: id,
 			})
 		);
 	}, 60000);
