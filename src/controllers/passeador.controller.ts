@@ -27,14 +27,17 @@ class PasseadorController {
 
 	public async createPasseador(req: Request, res: Response): Promise<void> {
 		try {
-			const { nome, email, disponibilidade, senha } = req.body;
+			const { nome, email, disponibilidade, senha, latitude, longitude, avaliacao } = req.body;
 			const salt = await bcrypt.genSalt();
 			const hashSenha = await bcrypt.hash(senha, salt)
 			const Passeador = await PasseadorService.createPasseador(
 				nome,
 				email,
 				disponibilidade,
-				hashSenha
+				hashSenha,
+				latitude,
+				longitude,
+				avaliacao
 			);
 			res.status(StatusCodes.CREATED).json(Passeador);
 		} catch (error) {

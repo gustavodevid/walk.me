@@ -17,9 +17,12 @@ class PasseadorService {
 		nome: string,
 		email: string,
 		disponibilidade: string,
-		senha: string
+		senha: string,
+		latitude: string,
+		longitude: string,
+		avaliacao: number
 	) {
-		return Passeador.create({ nome, email, disponibilidade, senha });
+		return Passeador.create({ nome, email, disponibilidade, senha, latitude, longitude, avaliacao });
 	}
 
 	public async removePasseadorByPk(id: string) {

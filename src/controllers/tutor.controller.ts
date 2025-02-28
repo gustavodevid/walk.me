@@ -63,23 +63,31 @@ class TutorController {
 	public async loginTutor(req: Request, res: Response): Promise<void> {
 		const { email, senha } = req.body;
 		const user = await tutorService.getTutorByEmail(email);
+
 		if (!user) {
 			res.status(StatusCodes.NOT_FOUND).json('Email não encontrado!');
 		} else {
 			const hashSenha = user.dataValues.senha;
 			console.log(hashSenha);
 			if (!(await bcrypt.compare(senha, hashSenha))) {
-				// console.log(user.senha)
 				res.status(StatusCodes.UNAUTHORIZED).json('Senha inválida!');
 			}
 			try {
 				const token = jwt.sign(
 					{
-						id: user?.id,
+						id: user.dataValues.tutorId,
 					},
-					secret
+					secret,
+					{
+						expiresIn: '4h' 
+					}
 				);
-				res.status(StatusCodes.OK).json(token);
+				res.status(StatusCodes.OK).json({
+					token,
+					userId: user.dataValues.tutorId,
+					userEmail: user.dataValues.email,
+					userName: user.dataValues.nome
+				});
 			} catch (err) {
 				res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(
 					'Não foi possível logar!'
