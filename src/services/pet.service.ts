@@ -13,9 +13,11 @@ class PetService {
 		nome: string,
 		raca: string,
 		idade: number,
-		tutorId: string
+		tutorId: string,
+		foto: string | null = null
 	) {
-		return Pet.create({ nome, raca, idade, tutorId });
+		console.log('fotoPath:', foto);
+		return Pet.create({ nome, raca, idade, tutorId, foto });
 	}
 
 	public async getPetsByTutorId(id: string) {
