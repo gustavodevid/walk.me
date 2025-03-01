@@ -7,6 +7,7 @@ import {
 	PrimaryKey,
 	ForeignKey,
 	HasMany,
+	BelongsTo,
 } from 'sequelize-typescript';
 import Adestrador from './adestrador.model';
 import Passeador from './passeador.model';
@@ -57,4 +58,16 @@ export default class Servico extends Model {
 
 	@HasMany(() => Avaliacao)
 	avaliacoes!: Avaliacao[];
+
+	@BelongsTo(() => Tutor, { foreignKey: 'tutorId', as: 'tutor' })
+    tutor!: Tutor;
+
+    @BelongsTo(() => Pet, { foreignKey: 'petId', as: 'pet' })
+    pet!: Pet;
+
+    @BelongsTo(() => Adestrador, { foreignKey: 'adestradorId', as: 'adestrador' })
+    adestrador?: Adestrador;
+
+    @BelongsTo(() => Passeador, { foreignKey: 'passeadorId', as: 'passeador' })
+    passeador?: Passeador;
 }

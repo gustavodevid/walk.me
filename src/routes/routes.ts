@@ -4,13 +4,15 @@ import tutorRoutes from './tutor.routes';
 import adestradorRoutes from './adestrador.routes';
 import passeadorRoutes from './passeador.routes';
 import anuncioRoutes from  './anuncio.routes'
-import loginRoutes from './login.routes'
+import loginRoutes from  './login.routes'
+import servicoRoutes from './servico.router'
 const router = Router();
 
 router.use('/v1/tutor', tutorRoutes);
 router.use('/v1/pet', petRoutes);
 router.use('/v1/adestrador', adestradorRoutes);
 router.use('/v1/passeador', passeadorRoutes);
-router.use('/v1/anuncio', anuncioRoutes)
-router.use('/v1/login', loginRoutes)
+router.use('/v1/anuncio', anuncioRoutes);
+router.use('/v1/login', loginRoutes);
+router.use('/v1/servico', servicoRoutes);
 export default router;
