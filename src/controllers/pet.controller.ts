@@ -56,7 +56,7 @@ class PetController {
 				console.log('req.file:', req.file); 
                 console.log('req.body:', req.body);
                 const { nome, raca, idade, tutorId } = req.body;
-                const fotoPath = req.file ? req.file.path : null;
+				const fotoPath = req.file ? req.file.path.replace(/\\/g, '/') : null;
 
                 const pet = await PetService.createPet(nome, raca, idade, tutorId, fotoPath);
                 res.status(StatusCodes.CREATED).json(pet);
