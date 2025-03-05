@@ -20,9 +20,10 @@ class PasseadorService {
 		senha: string,
 		latitude: string,
 		longitude: string,
-		avaliacao: number
+		avaliacao: number,
+		foto: string | null = null
 	) {
-		return Passeador.create({ nome, email, disponibilidade, senha, latitude, longitude, avaliacao });
+		return Passeador.create({ nome, email, disponibilidade, senha, latitude, longitude, avaliacao, foto });
 	}
 
 	public async removePasseadorByPk(id: string) {

@@ -16,7 +16,6 @@ class PetService {
 		tutorId: string,
 		foto: string | null = null
 	) {
-		console.log('fotoPath:', foto);
 		return Pet.create({ nome, raca, idade, tutorId, foto });
 	}
 

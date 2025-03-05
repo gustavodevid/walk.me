@@ -26,10 +26,18 @@ class PasseadorController {
 	}
 
 	public async createPasseador(req: Request, res: Response): Promise<void> {
+		
+		if (!req.file) {
+			res.status(StatusCodes.BAD_REQUEST).json({ message: 'A foto do passeador é obrigatória.' });
+			return;
+		}
+		const fotoPath = `${req.protocol}://${req.get('host')}/uploads/passeadors/${req.file.filename}`
+
 		try {
 			const { nome, email, disponibilidade, senha, latitude, longitude, avaliacao } = req.body;
 			const salt = await bcrypt.genSalt();
-			const hashSenha = await bcrypt.hash(senha, salt)
+			const hashSenha = await bcrypt.hash(senha, salt);
+
 			const Passeador = await PasseadorService.createPasseador(
 				nome,
 				email,
@@ -37,7 +45,8 @@ class PasseadorController {
 				hashSenha,
 				latitude,
 				longitude,
-				avaliacao
+				avaliacao, 
+				fotoPath
 			);
 			res.status(StatusCodes.CREATED).json(Passeador);
 		} catch (error) {

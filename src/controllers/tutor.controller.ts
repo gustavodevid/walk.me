@@ -8,8 +8,22 @@ import dotenv from 'dotenv';
 import { hash } from 'crypto';
 import Tutor from '../models/tutor.model';
 import { TutorData } from '../types/tutor.type';
+import { z } from 'zod';
 dotenv.config();
 const secret = process.env.SECRET || ' ';
+
+// Definindo esquemas de validação com Zod
+const createSchema = z.object({
+	nome: z.string().min(1, 'Nome é obrigatório'),
+	email: z.string().email('Email inválido'),
+	senha: z.string().min(6, 'A senha deve ter pelo menos 6 caracteres'),
+});
+
+const loginSchema = z.object({
+	email: z.string().email('Email inválido'),
+	senha: z.string().min(6, 'A senha deve ter pelo menos 6 caracteres'),
+});
+
 class TutorController {
 	public async getAllTutors(req: Request, res: Response): Promise<void> {
 		try {
@@ -31,10 +45,18 @@ class TutorController {
 	}
 
 	public async createTutor(req: Request, res: Response): Promise<void> {
+		// Validação do corpo da requisição
+		const parsed = createSchema.safeParse(req.body);
+		if (!parsed.success) {
+			res.status(StatusCodes.BAD_REQUEST).json(parsed.error.format());
+			return;
+		}
+		const { nome, email, senha } = parsed.data;
+
 		try {
-			const { nome, email, senha } = req.body;
 			const salt = await bcrypt.genSalt();
 			const hashSenha = await bcrypt.hash(senha, salt);
+			
 			const Tutor = await TutorService.createTutor(
 				nome,
 				email,
@@ -47,6 +69,24 @@ class TutorController {
 			});
 		}
 	}
+
+	public async updateTutorByPk(req: Request, res: Response): Promise<void> {
+        try {
+            const id = req.params.id;
+
+            if (!req.file) {
+                res.status(StatusCodes.BAD_REQUEST).json({ message: 'A foto do tutor é obrigatória.' });
+                return;
+            }
+            const fotoPath = `${req.protocol}://${req.get('host')}/uploads/tutors/${req.file.filename}`;
+
+            const tutor = await TutorService.updateTutorByPk(id, fotoPath);
+            res.status(StatusCodes.OK).json(tutor);
+        } catch (error) {
+            console.error('Erro ao atualizar tutor:', error);
+            res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Erro interno do servidor.' });
+        }
+    }
 
 	public async removeTutorByPk(req: Request, res: Response): Promise<void> {
 		const id = req.params.id;
@@ -61,14 +101,19 @@ class TutorController {
 	}
 
 	public async loginTutor(req: Request, res: Response): Promise<void> {
-		const { email, senha } = req.body;
+		// Validação do corpo da requisição
+		const parsed = loginSchema.safeParse(req.body);
+		if (!parsed.success) {
+			res.status(StatusCodes.BAD_REQUEST).json(parsed.error.format());
+			return;
+		}
+		const { email, senha } = parsed.data;
 		const user = await tutorService.getTutorByEmail(email);
 
 		if (!user) {
 			res.status(StatusCodes.NOT_FOUND).json('Email não encontrado!');
 		} else {
 			const hashSenha = user.dataValues.senha;
-			console.log(hashSenha);
 			if (!(await bcrypt.compare(senha, hashSenha))) {
 				res.status(StatusCodes.UNAUTHORIZED).json('Senha inválida!');
 			}

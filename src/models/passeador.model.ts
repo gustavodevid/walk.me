@@ -42,6 +42,9 @@ export default class Passeador extends Model {
 	@Column(DataType.FLOAT) 
 	avaliacao!: number;
 
+    @Column(DataType.STRING)
+	foto?: string;
+
     @HasMany(() => Anuncio)
     anuncios!: Anuncio[];
 }

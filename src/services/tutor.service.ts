@@ -14,6 +14,18 @@ class TutorService {
 		});
 	}
 
+	public async updateTutorByPk(
+		id: string,
+		foto: string
+	) {
+		return Tutor.update(
+			{ foto },
+			{
+				where: { tutorId: id },
+			}
+		);
+	}
+
 	public async createTutor(nome: string, email: string, senha: string) {
 		return Tutor.create({ nome, email, senha });
 	}

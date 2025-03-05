@@ -27,7 +27,10 @@ export default class Tutor extends Model {
 
 	@Column(DataType.STRING)
 	senha!: string;
-
+	
+	@Column(DataType.STRING)
+	foto?: string;
+	
 	@HasMany(() => Pet)
 	pets!: Pet[];
 }
