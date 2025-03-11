@@ -20,11 +20,22 @@ class PasseadorService {
 		senha: string,
 		latitude: string,
 		longitude: string,
-		avaliacao: number,
-		foto: string | null = null
+		avaliacao: number
 	) {
-		return Passeador.create({ nome, email, disponibilidade, senha, latitude, longitude, avaliacao, foto });
+		return Passeador.create({ nome, email, disponibilidade, senha, latitude, longitude, avaliacao });
 	}
+
+	public async updatePasseadorByPk(
+			id: string,
+			foto: string
+		) {
+			return Passeador.update(
+				{ foto },
+				{
+					where: { passeadorId: id },
+				}
+			);
+		}
 
 	public async removePasseadorByPk(id: string) {
 		return Passeador.destroy({

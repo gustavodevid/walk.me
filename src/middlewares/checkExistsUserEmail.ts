@@ -8,8 +8,8 @@ const emailRegex = /^(?!.*\.{2})[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 const MAX_EMAIL_LENGTH = 254;
 
 export const checkExistsUserEmail = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  const userEmail = req.body.email?.trim(); // Remove espaços em branco no início e no fim
-
+  const userEmail = req.body.email?.trim();
+  
   // Verifica se o email é fornecido e não é vazio
   if (!userEmail || typeof userEmail !== 'string' || userEmail.length === 0) {
     res.status(400).json({ message: 'Email inválido.' });

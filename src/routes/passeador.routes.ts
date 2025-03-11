@@ -8,7 +8,7 @@ const router = Router();
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/pets/');
+        cb(null, 'uploads/passeadors/');
     },
     filename: (req, file, cb) => {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
@@ -22,7 +22,9 @@ router.get('/', passeadorController.getAllPasseadors);
 
 router.get('/:id', passeadorController.getPasseadorByPk);
 
-router.post('/', checkExistsUserEmail,  upload.single('foto'), passeadorController.createPasseador);
+router.post('/', checkExistsUserEmail, passeadorController.createPasseador);
+
+router.put('/:id', upload.single('foto'), passeadorController.updatePasseadorByPk);
 
 router.delete('/:id', passeadorController.removePasseadorByPk);
 

@@ -78,7 +78,7 @@ class TutorController {
                 res.status(StatusCodes.BAD_REQUEST).json({ message: 'A foto do tutor é obrigatória.' });
                 return;
             }
-            const fotoPath = `${req.protocol}://${req.get('host')}/uploads/tutors/${req.file.filename}`;
+            const fotoPath = `/uploads/tutors/${req.file.filename}`;
 
             const tutor = await TutorService.updateTutorByPk(id, fotoPath);
             res.status(StatusCodes.OK).json(tutor);

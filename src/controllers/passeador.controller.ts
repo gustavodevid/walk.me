@@ -26,13 +26,6 @@ class PasseadorController {
 	}
 
 	public async createPasseador(req: Request, res: Response): Promise<void> {
-		
-		if (!req.file) {
-			res.status(StatusCodes.BAD_REQUEST).json({ message: 'A foto do passeador é obrigatória.' });
-			return;
-		}
-		const fotoPath = `${req.protocol}://${req.get('host')}/uploads/passeadors/${req.file.filename}`
-
 		try {
 			const { nome, email, disponibilidade, senha, latitude, longitude, avaliacao } = req.body;
 			const salt = await bcrypt.genSalt();
@@ -45,8 +38,7 @@ class PasseadorController {
 				hashSenha,
 				latitude,
 				longitude,
-				avaliacao, 
-				fotoPath
+				avaliacao
 			);
 			res.status(StatusCodes.CREATED).json(Passeador);
 		} catch (error) {
@@ -54,6 +46,24 @@ class PasseadorController {
 				message: 'Internal Server Error',
 			});
 		}
+	}
+
+	public async updatePasseadorByPk(req: Request, res: Response): Promise<void> {
+			try {
+				const id = req.params.id;
+				
+				if (!req.file) {
+					res.status(StatusCodes.BAD_REQUEST).json({ message: 'A foto do tutor é obrigatória.' });
+					return;
+				}
+				const fotoPath = `/uploads/passeadors/${req.file.filename}`;
+	
+				const passeador = await PasseadorService.updatePasseadorByPk(id, fotoPath);
+				res.status(StatusCodes.OK).json(passeador);
+			} catch (error) {
+				console.error('Erro ao atualizar passeador:', error);
+				res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'Erro interno do servidor.' });
+			}
 	}
 
 	public async removePasseadorByPk(

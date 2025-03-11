@@ -43,7 +43,7 @@ class PetController {
                 res.status(StatusCodes.BAD_REQUEST).json({ message: 'A foto do pet é obrigatória.' });
                 return;
             }
-            const fotoPath = `${req.protocol}://${req.get('host')}/uploads/pets/${req.file.filename}`;
+            const fotoPath = `/uploads/pets/${req.file.filename}`;
 
             const pet = await PetService.createPet(nome, raca, idade, tutorId, fotoPath);
             res.status(StatusCodes.CREATED).json(pet);
