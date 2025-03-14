@@ -27,8 +27,8 @@ class ServicoService {
         });
     }
 
-    public async createServico(passeadorId: number, petId: number, data: string, horario: string, tutorId: string) {
-        return Servico.create({ passeadorId, petId, data, horario, tutorId });
+    public async createServico(passeadorId: number, petId: number, dataServico: string, horario: string, tutorId: string) {
+        return Servico.create({ passeadorId, petId, dataServico, horario, tutorId });
     }
 
     public async removeServicoByPk(id: string) {

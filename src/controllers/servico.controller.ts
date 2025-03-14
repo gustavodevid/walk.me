@@ -35,11 +35,11 @@ class ServicoController {
 
     public async createServico(req: Request, res: Response): Promise<void> {
         try {
-            const { passeadorId, petId, data, horario, tutorId } = req.body;
+            const { passeadorId, petId, dataServico, horario, tutorId } = req.body;
             const servico = await ServicoService.createServico(
                 passeadorId,
                 petId,
-                data,
+                dataServico,
                 horario,
                 tutorId
             );

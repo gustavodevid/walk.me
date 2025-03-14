@@ -25,4 +25,6 @@ router.get('/tutor/:id', petController.getPetsByTutorId);
 
 router.post('/',  upload.single('foto'), petController.createPet);
 
+router.delete('/:id', petController.removePetByPk);
+
 export default router;
